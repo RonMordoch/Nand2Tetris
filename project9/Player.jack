@@ -1,0 +1,127 @@
+// A class representing the player
+class Player{
+
+    // Fields
+    field int x, y; // (x,y) coordinates
+    field int lives; // players lives
+    field int score; // players score
+    field int size; // player sze
+
+
+    constructor Player new(int Ax, int Ay, int Alives){
+        let x = Ax;
+        let y = Ay;
+        let lives = Alives;
+        let size = 16;
+        return this;
+    }
+
+// ========== GETTERS ==========
+
+    method int getY(){
+        return y;
+    }
+
+    method int getX(){
+        return x;
+    }
+
+    method int getSize(){
+        return size;
+    }
+
+
+    method int getScore(){
+        return score;
+    }
+
+    method int getLives(){
+        return lives;
+    }
+
+    // Draws the player
+    method void draw(){
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    // Erases the player
+    method void erase(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x,y, x + size, y + size);
+        return;
+    }
+
+    // Updates the players location according the the key pressed
+    method void updateLocation(int direction){
+        do erase();
+        if (direction = 131){
+            do moveUp();
+        }
+        if (direction = 133){
+            do moveDown();
+        }
+        if (direction = 132){
+            do moveRight();
+        }
+        if (direction = 130){
+            do moveLeft();
+        }
+        do draw();
+        return;
+
+    }
+
+    // Updates the players lives
+    method void updateLives(int newLives){
+        let lives = newLives;
+        return;
+    }
+
+    // Resets the player to a new location
+    method void setLocation(int Ax, int Ay){
+        do erase();
+        let x = Ax;
+        let y = Ay;
+        do draw();
+        return;
+    }
+
+    // Updates the players score
+    method void updateScore(){
+        let score = score + 1;
+        return;
+    }
+
+// ========== METHODS TO MOVE THE PLAYER TO THE 4 POSSIBLE DIRECTIONS - UP,DOWN, LEFT, RIGHT ==========
+    method void moveUp(){
+        if ((y - lives) > 27){
+            let y = y - lives;
+            }
+        return;
+    }
+
+    method void moveDown(){
+       if ((y + size + lives) < 229){
+         let y = y + lives;
+         }
+        return;
+    }
+
+    method void moveLeft(){
+        if ((x - lives) > 55){
+            let x = x - lives;
+            }
+        return;
+    }
+
+    method void moveRight(){
+        if ((x + size + lives) < 457){
+            let x = x + lives;
+        }
+        return;
+    }
+
+
+ }

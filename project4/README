@@ -1,0 +1,23 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 4
+
+Submitted Files
+------------
+Divide.asm - Implementation of integer division (throwing the
+remainder) using left / right shifts.
+Sort.asm - Implementation of sort, using the bubble sort algorithm.
+Mult.asm - Implementation of multiplication of 2 numbers
+Fill.asm - Implementation of the "fill" program, which blackens the whole
+screen when any key is pressed.
+README
+
+Remarks
+------------
+In this exercise, we learned how to write code using the HACK machine
+language, A and C instructions, and working with inut/output mechanisms (keyboard and screen).
+
+

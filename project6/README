@@ -1,0 +1,22 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 6
+
+Submitted Files
+------------
+Assembler.py
+Makefile
+Assembler
+README
+
+Remarks
+------------
+In this exercise we implemented the Assembler program using Python.
+We decided to use Python due to the simplicity of Python's text & file handling and parsing abilities.
+We followed the HACK specification language found in the book for the translation of asm commands into hack code.
+We implemented the Assembler in a different way than the suggested API due to Python's mechanisms. We felt
+that we did not need specific classes for menial tasks and that a single function can parse the file, and handle each
+line separately.

@@ -1,0 +1,36 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 10
+
+Submitted Files
+------------
+JackTokenizer.p - File containing th Jack Tokenizer class
+CompilationEngine.py - File containing the compilation engine class.
+JackAnalyzer.py - File with the main function of the program
+README - readme (you are here)
+Makefile - in order to run the program easily
+JackAnalyzer - and also to run the program, easily
+
+Remarks
+------------
+Hello and welcome to our project 10.
+We implemented project 10 with the given implementation ideas, so we had 2 classes Jack tokenizer
+and Jack analyzer.
+
+For the Jack tokenizer class, we used Regex in order to catch th tokens correctly, specifically we made several patterns
+one for each lexical element in the Jack language and then compiled them together in a single Matcher regex object.
+That way, all the tokens of a single line were found, and returned in a single list. For the advance function, we
+iterated through the tokens of a single line, or if the line was completed we called a function which gets a valid
+line of Jack code.
+Additionally, we added another function peek(), which allowed us to "peek" at the next token but not advance the
+tokenizer. This is crucial later on because in the compilation engine function compile_term() we found a problem
+with the Jack grammar and compiling, because in order to handle the proper decision of which term we have, the
+Jack grammar used a look ahead of 1, and therefore needed to know the future token without advancing it.
+
+In the compilation engine, we used the format of a recursive parsing tree, as described in the lectures. Each function,
+calls the next functions exactly in the format for the Jack grammar.
+
+The end.

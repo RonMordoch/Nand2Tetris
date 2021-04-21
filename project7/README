@@ -1,0 +1,36 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 7
+
+Submitted Files
+------------
+VMtranslator.py
+Makefile
+VMtranslator
+README
+
+Remarks
+------------
+In this exercise we implemented a partial VM translator, which gets a file written in Virtual
+Machine language and outputs the corresponding assembly code. In order to do this, we divided the
+basic VM operations into 2 general categories, arithmetic and memory segments(push/pop). For the
+push/pop operations, we wrote pseudo assembly code for referencing and dereferencing to stack pointer
+and the corresponding memory segment. We noticed that in different cases, we needed to use the Address register
+and in others we had to use the M register (for example, pointer/temp and this/local). For the arithmetic
+operations, we noticed again a few categories, unary vs binary operations, and comparison operations. Each was
+handled separately, using as much shared code as possible. In the comparison operations, Aviv caught our attention
+to the overflow problem, for example comparing -32676 and 10 will result in overflow and therefore a wrong
+comparison output. For our solution, we looked at the two x and y values and noticed when it would be
+possible to have overflow. To depict the problem we used a complete binary tree as follows
+
+
+                                   |---positiveY:
+                   |---positiveX---|
+                   |               |---negativeY: different sign, overflow risk!, but y<x necessarily
+                x--|
+                   |               |---positiveY: different sign, overflow risk!, but x<y necessarily
+                   |---negativeX---|
+                                   |---negativeY:

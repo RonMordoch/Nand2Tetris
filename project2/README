@@ -1,0 +1,28 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 2 
+
+Submitted Files
+------------
+HalfAdder.hdl - Performs the addition of 2 bits
+FullAdder.hdl - Performs the addition of 3 bits using the previously implemented HalfAdder chip
+Add16.hdl - Performs addition of 2 16-bits numbers using HalfAdder and FullAdder
+Inc16.hdl - Increments the number by 1
+ALU.hdl - Arithmetic Logic Unit implementation, performs all the arithmetic operations 
+ShiftLeft.hdl - Performs an arithmetic left shift
+ShiftRight.hdl - Performs an arithmetic right shift
+Mul.hdl - Performs binary multiplication
+LogicShiftLeft.hdl - A helper chip for binary multiplication, created and implemented by us ! :) 
+
+Remarks
+------------
+We implemented HalfAdder and ShiftLeft using the minimal gates required.
+For the Mul chip, we created another chip - the LogicShiftLeft chip, which performs 
+a left shift without ignoring the sign bit.
+Then we implemented binary multiplication using the Shift-Add algorithm.
+
+
+

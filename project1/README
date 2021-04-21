@@ -1,0 +1,30 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 1 
+
+Submitted Files
+------------
+Not.hdl - Implementation of the NOT logic gate
+And.hdl - Implementation of the AND logic gate
+Or.hdl - Implementation of the OR logic gate
+Xor.hdl - Implementation of the XOR logic gate
+Mux.hdl - Implementation of the Multiplexer logic gate
+DMux.hdl - Implementation of the DeMultiplexer lgic gate 
+Not16.hdl - Implementation of the Not16 logic gate using the previously implemented NOT gate
+And16.hdl- Implementation of the And16 logic gate using the previously implemented AND gate
+Or16.hdl- Implementation of the Or16 logic gate using the previously implemented OR gate
+Mux16.hdl- Implementation of the Mux16 logic gate using the previously implemented MUX gate
+Or8Way.hdl - Implementation of the Or8Way logic gate which "OR"'s each bit of the input 
+Mux4Way16.hdl - Implementation of the Mux4Way16 logic gate
+Mux8Way16.hdl- Implementation of the Mux8Way16 logic gate
+DMux4Way.hdl- Implementation of the DMux4Way logic gate
+DMux8Way.hdl - Implementation of the DMux8Way logic gate
+
+Remarks
+------------
+We implemented all the chips using the minimal amount of NAND gates required.
+
+

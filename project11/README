@@ -1,0 +1,32 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 11
+
+Submitted Files
+------------
+JackTokenizer.py - File containing th Jack Tokenizer class
+CompilationEngine.py - File containing the compilation engine class.
+JackCompiler.py - File with the main function of the program
+SymbolTable.py - File containing the SymbolTable class
+VMWriter.py - File containing the VMWriter class
+README - readme (you are here)
+Makefile - in order to run the program easily
+JackCompiler - and also to run the program, easily
+
+Remarks
+------------
+Hello and welcome to our project 11.
+
+We implemented the project using the suggested implementation including the Symbol table, VMWriter
+compilation engine and Jack compiler.
+
+For each module we closely followed the details in the book, regarding the API.
+
+For the compilation engine , we used the same basic structure as we used in the previous project,
+but we added the push/pop/call etc. as described in the book/lectures instead of the code for writing
+XML code. However, the basic recursive structure remained the same and so the previous project's module
+gave us a backbone for implementing this projects compilation engine.
+

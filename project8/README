@@ -1,0 +1,20 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 8
+
+Submitted Files
+------------
+VMtranslator.py
+Makefile
+VMtranslator
+README
+
+Remarks
+------------
+In this exercise we finally completed writing the VMtranslator.
+We followed the description and pseudo-code described in the book as our instructions on how to write the goto commands,
+call commands, return commands, and the code necessary for function and labels.
+We used a counter of the current function being processed in order to distinguish return labels from each other.

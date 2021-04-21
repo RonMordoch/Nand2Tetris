@@ -1,0 +1,29 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********,, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 5
+
+Submitted Files
+------------
+Memory.hdl - Implementation of entire RAM address space (including keyboard and screen memory maps)
+CPU.hdl - Implementation of the Hack Central Processing Unit , using the ALU to compute , and reading
+the instructions bits for jump/destination/compute bits
+Computer.hdl - Implementation of the top-most chip, includes memory, CPU and ROM
+ExtendedALU.hdl - Implementation of the extension of ALU, which includes computations
+for multiplication and shift right and left
+CpuMul.hdl - very similar implemention to that of the CPU, except using the extended ALU 
+instead of the basic ALU
+README
+
+Remarks
+------------
+In this excerices, we implemented many important parts of the computer. In the CPU
+we understood that at each phase, there are specific control bits that must
+be checked continuously (A/C instruction, destination bits), and that the outputs
+of the ALU (zr and ng) which we previously did not understand their meaning, now played
+an important role in deciding if to jump or not (using them to determine jumping).
+In the CPUMul, we realized that the main implementation is very similar, but instead
+we sent the correct instruction bits to the extended ALU. 
+

@@ -1,0 +1,53 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 9
+
+Submitted Files
+------------
+Player.jack - file with the player class
+Enemy.jack - file with the enemy class
+GameBoard.jack - file with the gameboard class
+Game.jack - file with the game class
+Main.jack - runs the main program of the game
+
+Remarks
+------------
+
+Rules of the game:
+
+You are the black square. You can move up, down, left or right with the corresponding arrows.
+Your goal is to avoid the cute but villainous enemies !! That continuously change their path randomly in order to
+surprise you! If you get hit, then you will lose a life. (And your speed will get decreased!!!!- increasing the
+difficulty). You start the game with 3 lives. You can win, by getting 10000 points, which can happen by avoiding losing
+for a sufficient amount of time (it's not easy!!).
+Good Luck!!!
+
+Implementation details:
+
+We divided the game module in to 5 separate modules:
+We have the Player and the Enemy module, each with their (x,y) location coordinates and size. The player also has
+lives and score;
+The 3rd module is the GameBoard module which represents the board that the game is being played on.
+The 4th and most important module is the Game module, which implements the logic of the game, and holds the Player,
+Enemy and GameBoard class. This implementation follows the Single-Responsibility Principle, due the the fact
+that Player,Enemy, and GameBoard are all oblivious to each others existence, and their interaction occurs only in the
+Game module.
+The 5th and simplest module is the main class which creates the Game object and runs the game until the game is
+complete, i.e. the player has won or the player has lost.
+
+Jack OS:
+
+We used the Screen library for displaying graphics on the screen, and providing a GUI representation of the game.
+We used the Output library for printing strings and integers to the screen, such as current amount of lives, current
+score, etc.
+We used the Array library to hold different kind of enemies, each with their own GUI representation.
+We used the Math library to execute different mathematical calculations such as in the pseudo-random location generator
+we implemented for the enemies.
+We used the Keyboard library for interacting with the users wishes to move the player to different directions.
+We used the Memory library for creating different sprites for the enemies and to display larger win/lose messages.
+We used the Sys library in order to manipulate time , by using the Sys.wait() function, in order to make the GUI flow
+of the game easy and comprehensible for the user.
+

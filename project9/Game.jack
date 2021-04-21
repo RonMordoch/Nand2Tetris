@@ -1,0 +1,230 @@
+// A class representing the logic of the game, runs a single game.
+class Game{
+
+    field GameBoard board; // game board
+    field Player player; // the player
+    field Array enemiesArr; // array of enemies
+
+    // Constructor
+    constructor Game new(){
+        let player = Player.new(228,114,3);
+        let board = GameBoard.new();
+        let enemiesArr = Array.new(3);
+        do createEnemies();
+        return this;
+    }
+
+    // Initialize the game
+    method void initializeGame(){
+        do board.draw(); //initialize board
+        do player.draw(); //initialize player
+        do drawEnemies(); //initialize enemy
+        return;
+    }
+
+    // Creates the enemies for the game
+   method void createEnemies(){
+        var int i;
+        let i = 1;
+        while (i < 4){
+            let enemiesArr[i-1] = Enemy.new(56, getRandomY(i), i);
+            let i = i + 1;
+        }
+        return;
+    }
+
+    // Draws the enemies
+    method void drawEnemies(){
+        var int i;
+        var Enemy e;
+        let i = 1;
+        while (i < 4){
+            let e = enemiesArr[i-1];
+            do e.draw();
+            let i = i + 1;
+        }
+        return;
+    }
+
+
+    // Moves the enemies, if a collision was detected return true; false otherwise
+    method boolean moveEnemies(){
+        var int i;
+        var Enemy e;
+        var boolean collision;
+        let collision = false;
+        let i = 1;
+        while (i < 4){
+            let e = enemiesArr[i-1];
+            do e.moveRight(getRandomY(i));
+            let collision = checkCollision(e);
+            if (collision){
+                return true;
+            }
+            let i = i + 1;
+        }
+        return false;
+    }
+
+
+    // Updates all of the game components. if a collision was detected return true; false otherwise
+    method boolean gameUpdate(int key){
+        var boolean collision;
+        let collision = false;
+        do player.updateLocation(key);
+        do board.updateBoard();
+        let collision = moveEnemies();
+        return collision;
+    }
+
+    // Returns a random Y coordinate for the given enemy
+    method int getRandomY(int enemyNum){
+        if (enemyNum = 1){
+            return getRandomY1();
+        }
+        if (enemyNum = 2){
+            return getRandomY2();
+        }
+        if (enemyNum = 3){
+            return getRandomY3();
+        }
+        return 1;
+    }
+
+    // Random Y coordinate for the first enemy
+    method int getRandomY1(){
+        var int temp;
+        var int newY;
+        let temp = player.getY();
+        let newY = 28 + ((temp + 50) - (184 *  ((temp + 50)/184))); // 184 is const, lower limit for rectangle
+        return newY;
+    }
+
+    // Random Y coordinate for the second enemy
+    method int getRandomY2(){
+        var int temp;
+        var int newY;
+        let temp = player.getY() + player.getX();
+        let newY = 28 + ((temp + 150) - Math.multiply(184,((temp + 150)/184)));
+         // 184 is const, lower limit for rectangle
+        return newY;
+    }
+
+    // Random Y coordinate for the third enemy
+    method int getRandomY3(){
+        var int temp;
+        var int newY;
+        let temp = player.getX();
+        let newY = 28 + ((temp + 300) - (184 *  ((temp + 300)/184))); // 184 is const, lower limit for rectangle
+        return newY;
+    }
+
+    // Checks the players coordinates vs the enemy's coordinates to detect a collision, returns true if collided;
+    // false otherwise;
+   method boolean checkCollision(Enemy e){
+        if ((e.getX() + 17) > player.getX()){
+            if ( (e.getX()) < (player.getX())){
+
+                if ((e.getY() +15) > (player.getY())){
+                    if ((e.getY() + 1) < (player.getY())){
+                        return true;
+                    }
+                }
+
+                if((e.getY() - 1) > player.getY()){
+                    if (e.getY() < (player.getY() + 15)){
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    // Runs a single iteration of the game until a player loses a life;
+    method void whileAlive(){
+        var char key;
+        var boolean collision;
+        var int counter;
+        let counter = 0;
+        let collision = false;
+        while (~collision){
+            let counter = counter + 1;
+            do updateScore(counter);
+            while ((key = 0) & (~collision)){
+                let counter = counter + 1;
+                do updateScore(counter);
+                let collision = moveEnemies();
+                do board.updateBoard();
+                do player.draw();
+                do Sys.wait(7);
+                let key = Keyboard.keyPressed();
+            }
+            if (collision){return;}
+
+            let collision = gameUpdate(key);
+            if (collision){return;}
+            do Sys.wait(7);
+
+            while((~(key = 0)) & (~collision)){
+                let counter = counter + 1;
+                do updateScore(counter);
+                let key = Keyboard.keyPressed();
+                let collision = gameUpdate(key);
+                do Sys.wait(7);
+            }
+        }
+        return;
+    }
+
+
+
+    // Update the player lives and the lives counter on board; if player lost all of his lives, return false; otherwise
+    // true;
+    method boolean updateLives(){
+        if (player.getLives() = 0){
+            return false;
+        }
+        else {
+            do player.updateLives(player.getLives() - 1);
+            do board.updateLives(player.getLives());
+            return true;
+        }
+    }
+
+    // Updates the score for the player and the score counter on board; if the score has reached the maximum, displays
+    // the win message and exit the program;
+    method void updateScore(int counter){
+
+        if (counter > 100) {
+            let counter = 0;
+
+            do player.updateScore();
+            do board.updateScore(player.getScore());
+            if (player.getScore() > 10000){
+                do board.drawWinMessage();
+                do Sys.halt();
+            }
+            }
+        return;
+    }
+
+    // Runs the game until completion.
+    method void run(){
+        var char key;
+        var boolean exit;
+        let exit = false;
+        do initializeGame();
+        while(~(player.getLives() = 0)){
+            do whileAlive();
+            do updateLives();
+            do player.setLocation(440, 114);
+        }
+        do board.drawLoseMessage();
+        return;
+    }
+
+
+
+}

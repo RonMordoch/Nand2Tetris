@@ -1,0 +1,71 @@
+/**
+* This chip is an extension of the book CPU by using the extended ALU.
+* More specificly if instruction[15]==0 or (instruction[14] and instruction[13] equals 1)
+* the CpuMul behave exactly as the book CPU.
+* While if it is C instruction and instruction[13] == 0 the output will be D*A/M 
+* (according to instruction[12]).
+* Moreover, if it is c instruction and instruction[14] == 0 it will behave as follows:
+*
+* instruction:  | 12 | 11 | 10 |
+* _____________________________
+* shift left D  | 0  | 1  | 1  |
+* shift left A  | 0  | 1  | 0  |
+* shift left M  | 1  | 1  | 0  |
+* shift right D | 0  | 0  | 1  |
+* shift right A | 0  | 0  | 0  |
+* shift right M | 1  | 0  | 0  |
+**/
+
+CHIP CpuMul{
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset=1) or continue executing
+                         // the current program (reset=0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write into M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+	// choose the input for A register
+    Mux16(a = instruction, b = aluout, sel = instruction[15], out = mux1out);
+	// check if this is an A instruction
+	Not( in = instruction[15], out = nota);
+	Or( a = nota, b = instruction[5], out = aload);
+	ARegister(in = mux1out, load = aload, out = aout, out[0..14] = addressM);
+
+	// choose between the A register or M input
+	Mux16(a = aout, b = inM, sel = instruction[12], out = mux2out);
+	// data for D register
+	And(a = instruction[15], b = instruction[4], out = dload);
+	DRegister(in = aluout, load = dload, out = dout);
+
+	// calculate using the extended ALU chip
+	ExtendAlu(x = dout, y = mux2out, instruction = instruction[6..14], out = aluout, out = outM, zr = zr, ng = ng);
+
+	// output the correct zr, ng values with the corresponding jump bits
+	And(a = instruction[2], b = ng, out = and1out);
+	And(a = instruction[1], b = zr, out = and2out);
+	Not(in = ng, out = nng);
+	Not(in = zr, out = nzr);
+	And(a = nng, b = nzr, out = ps);
+	And(a = instruction[0], b = ps, out = and3out);
+
+	Or(a = and1out, b = and2out, out = or1out);
+	Or(a = and3out, b = or1out, out = or2out);
+
+
+	And(a = or2out, b= instruction[15], out = pcload);
+	Not(in = pcload, out = notload);
+	PC(in = aout, load = pcload, inc = notload , reset = reset, out[0..14] = pc);
+
+	// calculate writeM
+	And(a = instruction[15], b = instruction[3], out = writeM); 
+
+	
+	
+
+}

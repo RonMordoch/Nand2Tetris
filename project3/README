@@ -1,0 +1,31 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 3
+
+Submitted Files
+------------
+Bit.hdl - Implementation of 1-bit register
+Register.hdl - Implementation of 16-bit register
+RAM8.hdl - Implementation 16-bit / 8 register memory
+RAM64.hdl - Implementation 16-bit / 64 register memory
+RAM512.hdl - Implementation 16-bit / 512 register memory
+RAM4K.hl - Implementation 16-bit / 4096 register memory
+RAM16K.hdl - Implementation 16-bit / 16384 register memory
+PC.hdl - Implementation 16-bit program counter
+README
+
+Remarks
+------------
+Our solution confronts to the memory hierarchy presented in the lectures:
+The single bit register, Bit.hdl, uses the builtin DFF chip to store 1-bit values 
+using sequential logic.
+The Register chip is implemented using 16 Bit chips, and from then on each RAM used 
+the previously implemented
+lower-level memory chip.
+The PC chip used 3 Mux16 and Inc16 chips to handle the conditions and Register to 
+handle the sequential logic.
+
+

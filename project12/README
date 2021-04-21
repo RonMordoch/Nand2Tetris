@@ -1,0 +1,41 @@
+mordoch.ron, yar_gav
+==========================================================
+Ron Mordoch, ID *********, ron.mordoch@mail.huji.ac.il 
+Yarden Gavish, ID *********, yarden.gavish@mail.huji.ac.il
+==========================================================
+Project 12
+
+Submitted Files
+------------
+Math.jack - OS class that includes basic math operations
+Memory.jack - OS class that handles memory allocation and deallocation
+String.jack - OS class that handles String constants
+Output.jack - OS class that handles printing characters onto the screen
+Keyboard.jack - OS class that handles keyboard input
+Sys.jack - OS class that handles the main System of Jack language
+Array.jack - OS class that handles creating/erasing arrays
+Screen.jack - OS class that handles drawing basic images onto the screen
+
+Remarks
+------------
+In this project we built the Jack operating system. This included thinking about a variety of things,
+including the RAM memory, efficient algorithms for basic mathematical operations, and using the memory
+map of the screen.
+
+Specifically, one of the goals of the project was to focus on efficienancy. We did this well by avoiding
+expensive operations (such as divide or multiply) in other functions. To avoid using these functions, 
+we created 2 new functions in the Math.jack class that handled multiplying and dividing by a power of 2
+separately, as this can be done more efficiently than normal multiplication or division.
+
+Additionally, in the Screen.jack class we created a separate function for drawing a horizontal line
+which used the specific way a horizontal line works with the memory. And we noticed that this special
+function (algorithm) reduced the run-time of the Screem test significantly, this is because other
+functions such as drawSquare() and drawCircle() use the horizontal line. In this algorithm we drew pixel
+by pixel only until we reached the beginning of a 16-bit memory location, then we would fill the entire
+number with -1 (1111111111111111) and this will fill in the entire 16 pixels at once instead of pixel
+by pixel. Then at the end, we went drew in the remaining pixels needed.
+
+These are just a few examples in which we thought of more efficient solutions. Otherwise, we 
+followed the implementation notes closely, including some small fixes. Because this is the operating
+system which an programmer writing in Jack is relying, efficiency is critical ! And we hope we
+stood by those requirements.

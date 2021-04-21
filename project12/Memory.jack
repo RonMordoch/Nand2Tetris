@@ -1,0 +1,127 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */
+class Memory {
+
+    static Array ram;
+    static Array heap;
+    static int free_list;
+
+    /** Initializes the class. */
+    function void init() {
+        let ram = 0;
+        let heap = 2048;
+
+        // As described in the book:
+        // the first cell contains the length of the list available
+        let heap[0] = 14335; // 16384 - 2048 - 1 (head for the linked list)
+        // the second cell contains the pointer to the next node, which in the
+        // beginning does not exist,therefore 0 will be used as the 'end node'
+        let heap[1] = 0;
+
+        let free_list = 2048; // head of the linked list
+        return;
+    }
+
+    /** Returns the RAM value at the given address. */
+    function int peek(int address) {
+        return ram[address];
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
+    }
+
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. */
+    function int alloc(int size) {
+        var int curr_node, prev_node, next_node, curr_len;
+        var int block;
+
+        let prev_node = free_list; // prev node starts at head
+        let curr_node = free_list; // curr node start at head
+        let next_node = ram[curr_node + 1]; // the next node
+        let curr_len = ram[curr_node]; // current length of block
+
+        // While we did not reach the last node
+        // and  the length of the current block is less than the required size
+       // then advance to the next node.
+        while ( (~(curr_node = 0)) & (~(curr_len > size)))
+        {
+            let prev_node = curr_node;
+            let curr_node = next_node;
+            let next_node = ram[curr_node + 1];
+            let curr_len = ram[curr_node];
+        }
+        // after the while loop, check why we stopped
+        // if curr_node = 0, that means we went through the entire list and
+        // did not find any matching block
+        if (curr_node = 0)
+        {
+            return -1;
+        }
+        // else, we found a matching block.
+        // We have 2 options:
+        // Option 1 - we have more than the necessary size
+        // Option 2 - we have exactly the size we need (size+2)
+        else
+        {
+        // the segment is possible if : segment.size >= size + 2
+        // or in Jack : segment.size > size + 3
+        // where segment size is actually the length of the block
+        // that is segment.size = ram[curr_node]
+
+            let curr_len = ram[curr_node];
+
+        // Option 1 - segment.size >= size + 2
+        // We have more than we need, so we carve a block and return it
+         if (curr_len > (size + 3)) {
+            //
+            let ram[curr_node] = curr_len - size - 1;
+            let curr_len = ram[curr_node]; // update
+            let block = curr_node + curr_len; // get block
+            let ram[block - 1] = size + 1; // get the needed size
+            return block;
+			}
+        // Else, Option 2 - remove the entire block and return it
+			else {
+                let block = curr_node + 1;
+				// the previous node now points the the next node
+				let ram[prev_node + 1] = ram[block];
+				// now we dont need the head of the list
+				let ram[block - 1] = size + 1;
+			    return block;
+        }
+        }
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) {
+   var int segment, segment_length;
+
+    // segment = object - 1
+    let segment = o - 1;
+    // segment.length = segment[-1]
+    let segment_length = ram[segment];
+
+    // insert the de-alloc'd object as the new head!!!!
+
+    let ram[o] = segment_length;
+    let ram[o+1] = free_list;
+    // update the free_list pointer, i.e. the head of the linked list
+    let free_list = o;
+    return;
+
+    }
+}
